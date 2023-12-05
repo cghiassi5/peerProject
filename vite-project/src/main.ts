@@ -1,7 +1,7 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
-import { openConnection, receiveConnection } from './send.ts'
+import {openConnection, receiveConnection, sendMessage } from './send.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -13,11 +13,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <h1>Vite + TypeScript</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <text id="counter" type="text"></text>
     </div>
     <div class="card">
       <input type="text" id="myInput" value="">
       <button id="getInputValue">Get Input Value</button>
+    </div>
+    <div class="card">
+     <input type="text" id="messages" value="">
+     <button id="sendMessage">send message </button>
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
@@ -25,14 +29,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-openConnection(document.querySelector<HTMLButtonElement>('#counter')!);
+openConnection(document.querySelector<HTMLTextAreaElement>('#counter')!);
 const getInputValueButton = document.querySelector<HTMLButtonElement>('#getInputValue')!;
-getInputValueButton.addEventListener('click', receiveInputValue);
-
-function receiveInputValue() {
-  const inputElement = document.querySelector<HTMLInputElement>('#myInput')!;
-  const inputValue = inputElement.value;
-  console.log("Input Value:", inputValue);
-
-  // Continue with your code...
-}
+getInputValueButton.addEventListener('click', receiveConnection);
+const sendMessageButton = document.querySelector<HTMLButtonElement>('#sendMessage')!;
+sendMessageButton.addEventListener('click', sendMessage);
